@@ -22,6 +22,8 @@ html, body { background: var(--desk); color: var(--ink); }
 body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding: 20px 16px 32px; }
 .wrap { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 20px; max-width: 1400px; margin: 0 auto; align-items: start; }
 @media (max-width: 960px) { .wrap { grid-template-columns: minmax(0, 1fr); } }
+.wrap.closed { grid-template-columns: minmax(0, 1fr); }
+.wrap.closed .card { display: none; }
 
 .sheet {
   background: var(--paper);
@@ -38,33 +40,41 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
 .layers { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 10px 4px 2px; font-family: var(--font-letter); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
 .layers label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
 .layers input { accent-color: var(--ink); }
-.timeline { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; align-items: start; padding: 14px 4px 4px; }
+.timeline { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; align-items: start; padding: 2px 4px 12px; }
 #tl-play { width: 40px; height: 40px; border: 1.5px solid var(--ink); background: var(--paper-hi); color: var(--ink); font: 700 15px var(--font-letter); cursor: pointer; }
 #tl-play:hover, #tl-play:focus-visible { border-color: var(--axis); color: var(--axis); outline: none; }
 .tl-track { min-width: 0; padding-top: 8px; }
 #tl-range { width: 100%; margin: 0; accent-color: var(--axis); cursor: pointer; }
-.tl-ticks { position: relative; height: 16px; margin: 2px 8px 0; font-family: var(--font-letter); font-size: 10px; letter-spacing: .04em; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.tl-pts { position: relative; height: 6px; margin: 2px 8px 0; }
+.tl-pts span { position: absolute; top: 0; width: 2px; height: 6px; margin-left: -1px; background: var(--axis); opacity: .7; }
+.tl-ticks { position: relative; height: 20px; margin: 0 8px; font-family: var(--font-letter); font-size: 13px; letter-spacing: .04em; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
 .tl-ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
 .tl-now { grid-column: 1 / -1; margin: 0; display: flex; flex-wrap: wrap; gap: 2px 12px; align-items: baseline; min-height: 3em; }
-.tl-now strong { font-family: var(--font-letter); font-weight: 800; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; color: var(--axis); font-variant-numeric: tabular-nums; min-width: 9.5em; }
-.tl-now span { flex: 1 1 260px; min-width: 0; }
+.tl-now strong { font-family: var(--font-letter); font-weight: 800; font-size: 20px; letter-spacing: .06em; text-transform: uppercase; color: var(--axis); font-variant-numeric: tabular-nums; min-width: 9.5em; }
+.tl-now span { flex: 1 1 260px; min-width: 0; font-size: 17px; }
 .site.future { opacity: .35; }
 .swatch { width: 26px; height: 0; border-top: 2px solid; display: inline-block; }
-.tl-sites { grid-column: 1 / -1; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; font-size: 13px; min-height: 30px; }
+.tl-sites { grid-column: 1 / -1; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: 13px; min-height: 34px; }
 .tl-sites > span { font-family: var(--font-letter); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--axis); }
-.tl-sites button { font: 700 12px var(--font-letter); letter-spacing: .05em; text-transform: uppercase; color: var(--axis); background: var(--paper-hi); border: 1.5px solid var(--axis); padding: 3px 9px; cursor: pointer; }
-.tl-sites button:hover, .tl-sites button:focus-visible { background: var(--axis); color: var(--paper-hi); outline: none; }
-.tl-sites button[aria-current="true"] { background: var(--axis); color: var(--paper-hi); }
+.tl-sites button { all: unset; display: inline-flex; align-items: center; gap: 4px; font: 800 12px var(--font-letter); letter-spacing: .07em; text-transform: uppercase; color: var(--axis); padding: 2px 4px 2px 0; cursor: pointer; }
+.tl-sites button svg { width: 26px; height: 26px; overflow: visible; flex: none; }
+.tl-sites button:hover, .tl-sites button:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+.tl-sites button:focus-visible { outline: 2px solid var(--allied); }
+.tl-sites button[aria-current="true"] .ring { fill: var(--axis); }
+.tl-sites button[aria-current="true"] .dot { fill: var(--paper-hi); }
 .tl-sites em { color: var(--ink-soft); }
 
 /* map key */
 .legend { border-top: 1px dashed var(--ink-soft); margin: 10px 4px 0; padding-top: 10px; }
 .legend h2 { font-family: var(--font-letter); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 8px; }
-.key { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 6px 18px; font-size: 12.5px; line-height: 1.35; }
+.key { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px 18px; font-size: 12.5px; line-height: 1.35; }
+.key h3 { font-family: var(--font-letter); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 4px; }
+.key ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
 .key li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 8px; align-items: center; }
 .key svg { width: 40px; height: 18px; overflow: visible; }
-.key .wide { grid-column: 1 / -1; grid-template-columns: auto minmax(0, 1fr); }
-.key .wide svg { width: auto; height: 22px; }
+.key .nations { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px 8px; }
+.key .nations li { grid-template-columns: 24px minmax(0, 1fr); gap: 4px; }
+.key .nations svg { width: 24px; }
 
 /* map interactivity */
 .site { cursor: pointer; outline: none; }
@@ -95,7 +105,10 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
   min-width: 0;
   position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px);
 }
-@media (max-width: 960px) { .card { position: static; } }
+@media (max-width: 960px) { .card { position: relative; } }
+.card-close { all: unset; position: absolute; top: 12px; right: 14px; cursor: pointer; font-family: var(--font-letter); font-size: 20px; line-height: 1; color: var(--ink-soft); padding: 2px 6px; }
+.card-close:hover, .card-close:focus-visible { color: var(--axis); }
+.card-close:focus-visible { outline: 2px solid var(--allied); }
 .stamp { font-family: var(--font-letter); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--axis); border: 1.5px solid var(--axis); padding: 2px 8px; align-self: flex-start; transform: rotate(-1.5deg); }
 .card h1 { font-family: var(--font-letter); font-weight: 800; font-size: 28px; line-height: 1.1; letter-spacing: .04em; text-transform: uppercase; margin: 0; text-wrap: balance; }
 .meta { font-size: 13px; color: var(--ink-soft); margin: -6px 0 0; }
@@ -136,6 +149,7 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
 .ed-head h1 { font-family: var(--font-letter); font-weight: 800; font-size: 26px; letter-spacing: .04em; text-transform: uppercase; margin: 0; }
 .ed-head .meta { margin: 0; max-width: 60ch; }
 .ed-back { color: var(--allied); font-size: 14px; }
+.ed-toggle { display: flex; gap: 6px; align-items: center; font-size: 13px; cursor: pointer; }
 .ed-body { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 22px; align-items: start; }
 @media (max-width: 760px) { .ed-body { grid-template-columns: minmax(0, 1fr); } }
 .ed-sites { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; font-size: 13px; }
@@ -179,7 +193,7 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
 
 /* film player */
 #player { border: 0; padding: 16px; width: min(900px, calc(100vw - 32px)); max-width: none; background: var(--paper-hi); color: var(--ink); box-shadow: 0 24px 60px -20px rgba(30,25,10,.7); }
-#player::backdrop { background: rgba(40,36,24,.72); }
+#player::backdrop { background: rgba(40,36,24,.45); }
 .p-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 .p-head h2 { font-family: var(--font-letter); font-size: 16px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; margin: 0; text-wrap: balance; }
 #p-close { font: 700 16px var(--font-letter); background: none; border: 1.5px solid var(--ink); color: var(--ink); width: 32px; height: 32px; flex: none; cursor: pointer; }
@@ -189,8 +203,18 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
 #p-link { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--allied); }
 </style>
 
-<div class="wrap" id="mapview">
+<div class="wrap closed" id="mapview">
   <div class="sheet">
+    <div class="timeline">
+      <button type="button" id="tl-play" aria-label="Play to next event">▶</button>
+      <div class="tl-track">
+        <input type="range" id="tl-range" min="0" max="39" step="0.05" value="14" aria-label="Date">
+        <div class="tl-pts" id="tl-pts" aria-hidden="true"></div>
+        <div class="tl-ticks" id="tl-ticks" aria-hidden="true"></div>
+      </div>
+      <p class="tl-sites" id="tl-sites" aria-live="polite"></p>
+      <p class="tl-now"><strong id="tl-date">23 July 1943</strong><span id="tl-event"></span></p>
+    </div>
     <div class="frame">
       <svg id="map" viewBox="0 0 870 540" role="img" aria-label="Map of Sicily, July to August 1943, with clickable battle sites">
         <defs>
@@ -208,8 +232,8 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
         <rect width="870" height="540" fill="#ebe2b9"/>
         <g id="g-relief"></g>
         <g id="g-land"></g>
-        <g id="g-roads"></g>
-        <g id="g-rivers"></g>
+        <g id="g-roads" data-layer="roads"></g>
+        <g id="g-rivers" data-layer="rivers"></g>
         <g id="g-towns"></g>
         <g id="g-bound"></g>
         <g id="g-fronts"></g>
@@ -220,42 +244,43 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
         <rect width="870" height="540" filter="url(#grain)" pointer-events="none"/>
       </svg>
     </div>
-    <div class="timeline">
-      <button type="button" id="tl-play" aria-label="Play timeline">▶</button>
-      <div class="tl-track">
-        <input type="range" id="tl-range" min="0" max="39" step="0.05" value="14" aria-label="Date">
-        <div class="tl-ticks" id="tl-ticks" aria-hidden="true"></div>
-      </div>
-      <p class="tl-now"><strong id="tl-date">23 July 1943</strong><span id="tl-event"></span></p>
-      <p class="tl-sites" id="tl-sites" aria-live="polite"></p>
-    </div>
     <div class="layers" id="layers">
       <label><input type="checkbox" id="ly-adv" data-target="adv" checked><span class="swatch" style="border-top:2px dashed var(--allied)"></span>Troop movements</label>
       <label><input type="checkbox" id="ly-units" data-target="units" checked>Unit symbols</label>
+      <label><input type="checkbox" id="ly-rivers" data-target="rivers">Rivers</label>
+      <label><input type="checkbox" id="ly-roads" data-target="roads">Roads</label>
     </div>
     <div class="legend">
       <h2>Key</h2>
-      <ul class="key">
-        <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="37" y2="9" stroke="#b3352c" stroke-width="3.2" stroke-linecap="round"/></svg>Front line on the date shown (Axis positions facing the Allies)</li>
-        <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="37" y2="9" stroke="#b3352c" stroke-width="1.4" stroke-dasharray="6 5" stroke-opacity=".45" stroke-linecap="round"/></svg>Earlier front lines</li>
-        <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="2" y1="9" x2="31" y2="9" stroke="#2e4b80" stroke-width="1.7" stroke-dasharray="9 4 2 4"/><path d="M30,5 L39,9 L30,13 L32.5,9 Z" fill="#2e4b80"/></svg>Allied advance</li>
-        <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="31" y2="9" stroke="#b3352c" stroke-width="1.7" stroke-dasharray="2 4" stroke-linecap="round"/><path d="M30,5 L39,9 L30,13 L32.5,9 Z" fill="#b3352c"/></svg>Axis evacuation to the mainland</li>
-        <li><svg viewBox="0 0 40 18" aria-hidden="true"><g transform="translate(20,8)"><path d="M-7,-3 A7,6 0 0 1 7,-3 Z" fill="#ebe2b9" stroke="#2e4b80" stroke-width="1.2"/><path d="M-7,-3 L0,7 L7,-3 M0,-3 L0,7" fill="none" stroke="#2e4b80" stroke-width=".8"/></g></svg>Airborne drop</li>
-        <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="37" y2="9" stroke="#3e4954" stroke-width="1"/></svg>Boundary between US Seventh and British Eighth Armies</li>
-        <li><svg viewBox="0 0 40 18" aria-hidden="true"><circle cx="20" cy="9" r="11" fill="none" stroke="#b3352c" stroke-width="3.5" opacity=".4"/><circle cx="20" cy="9" r="6.5" fill="#f2ebc9" stroke="#b3352c" stroke-width="2.4"/><circle cx="20" cy="9" r="2.2" fill="#3e4954"/></svg>Site in action on this date — its footage is listed under the timeline</li>
-        <li><svg viewBox="0 0 40 18" aria-hidden="true"><circle cx="11" cy="9" r="6.5" fill="#f2ebc9" stroke="#3e4954" stroke-width="1.6"/><circle cx="11" cy="9" r="2.2" fill="#3e4954"/><g opacity=".35"><circle cx="29" cy="9" r="6.5" fill="#f2ebc9" stroke="#3e4954" stroke-width="1.6"/><circle cx="29" cy="9" r="2.2" fill="#3e4954"/></g></svg>Site already fought over · not yet reached</li>
-        <li><svg viewBox="0 0 40 18" aria-hidden="true"><circle cx="20" cy="9" r="6.5" fill="#b3352c"/><circle cx="20" cy="9" r="2.2" fill="#f2ebc9"/></svg>Site open in the file card</li>
-        <li class="wide"><svg viewBox="0 0 196 22" aria-hidden="true" font-family="Overpass, sans-serif">
-          <g transform="translate(10,13)"><text x="0" y="-8" text-anchor="middle" font-size="6" fill="#2e4b80">XX</text><rect x="-9" y="-6" width="18" height="12" fill="#ebe2b9" stroke="#2e4b80" stroke-width="1.2"/><path d="M-9,-6 L9,6 M9,-6 L-9,6" stroke="#2e4b80"/></g>
-          <g transform="translate(60,13)"><text x="0" y="-8" text-anchor="middle" font-size="6" fill="#2e4b80">XX</text><rect x="-9" y="-6" width="18" height="12" fill="#ebe2b9" stroke="#2e4b80" stroke-width="1.2"/><ellipse rx="6" ry="3.2" fill="none" stroke="#2e4b80"/></g>
-          <g transform="translate(110,13)"><text x="0" y="-8" text-anchor="middle" font-size="6" fill="#b3352c">XX</text><rect x="-9" y="-6" width="18" height="12" fill="#ebe2b9" stroke="#b3352c" stroke-width="1.2"/><ellipse rx="6" ry="3.2" fill="none" stroke="#b3352c"/><path d="M-9,-6 L9,6 M9,-6 L-9,6" stroke="#b3352c" stroke-width=".8"/></g>
-          <g transform="translate(160,13)"><text x="0" y="-8" text-anchor="middle" font-size="6" fill="#2e4b80">XX</text><rect x="-9" y="-6" width="18" height="12" fill="#ebe2b9" stroke="#2e4b80" stroke-width="1.2"/><path d="M-9,-6 L9,6 M9,-6 L-9,6" stroke="#2e4b80"/><path d="M-5,5 Q-2.5,1 0,5 Q2.5,1 5,5" fill="none" stroke="#2e4b80"/></g>
-        </svg>Units: infantry, armor, panzergrenadier, airborne. Blue is Allied, red is Axis. XX marks a division, X a brigade.</li>
-      </ul>
+      <div class="key">
+        <section><h3>Lines</h3><ul>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="37" y2="9" stroke="#b3352c" stroke-width="3.2" stroke-linecap="round"/></svg>Front line on this date</li>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="37" y2="9" stroke="#b3352c" stroke-width="1.4" stroke-dasharray="6 5" stroke-opacity=".45" stroke-linecap="round"/></svg>Earlier fronts</li>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="37" y2="9" stroke="#3e4954" stroke-width="1"/></svg>US / British army boundary</li>
+        </ul></section>
+        <section><h3>Movement</h3><ul>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="2" y1="9" x2="31" y2="9" stroke="#2e4b80" stroke-width="1.7" stroke-dasharray="9 4 2 4"/><path d="M30,5 L39,9 L30,13 L32.5,9 Z" fill="#2e4b80"/></svg>Allied advance</li>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="31" y2="9" stroke="#b3352c" stroke-width="1.7" stroke-dasharray="2 4" stroke-linecap="round"/><path d="M30,5 L39,9 L30,13 L32.5,9 Z" fill="#b3352c"/></svg>Axis evacuation</li>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><g transform="translate(20,8)"><path d="M-7,-3 A7,6 0 0 1 7,-3 Z" fill="#ebe2b9" stroke="#2e4b80" stroke-width="1.2"/><path d="M-7,-3 L0,7 L7,-3 M0,-3 L0,7" fill="none" stroke="#2e4b80" stroke-width=".8"/></g></svg>Airborne drop</li>
+        </ul></section>
+        <section><h3>Units</h3><ul class="nations">
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><rect x="3" y="2" width="34" height="14" rx="2" fill="#2e4b80"/><text x="20" y="13" text-anchor="middle" font-family="Overpass, sans-serif" font-size="11" font-weight="700" fill="#ebe2b9">US</text></svg>US</li>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><rect x="3" y="2" width="34" height="14" rx="2" fill="#2f6b5f"/><text x="20" y="13" text-anchor="middle" font-family="Overpass, sans-serif" font-size="11" font-weight="700" fill="#ebe2b9">UK</text></svg>British</li>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><rect x="3" y="2" width="34" height="14" rx="2" fill="#6b4f86"/><text x="20" y="13" text-anchor="middle" font-family="Overpass, sans-serif" font-size="11" font-weight="700" fill="#ebe2b9">Can</text></svg>Canadian</li>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><rect x="3" y="2" width="34" height="14" rx="2" fill="#b3352c"/><text x="20" y="13" text-anchor="middle" font-family="Overpass, sans-serif" font-size="11" font-weight="700" fill="#ebe2b9">Ger</text></svg>German</li>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><rect x="3" y="2" width="34" height="14" rx="2" fill="#9a5f1c"/><text x="20" y="13" text-anchor="middle" font-family="Overpass, sans-serif" font-size="11" font-weight="700" fill="#ebe2b9">IT</text></svg>Italian</li>
+        </ul></section>
+        <section><h3>Sites</h3><ul>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><circle cx="20" cy="9" r="11" fill="none" stroke="#b3352c" stroke-width="3.5" opacity=".4"/><circle cx="20" cy="9" r="6.5" fill="#f2ebc9" stroke="#b3352c" stroke-width="2.4"/><circle cx="20" cy="9" r="2.2" fill="#3e4954"/></svg>In action now</li>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><circle cx="11" cy="9" r="6.5" fill="#f2ebc9" stroke="#3e4954" stroke-width="1.6"/><circle cx="11" cy="9" r="2.2" fill="#3e4954"/><g opacity=".35"><circle cx="29" cy="9" r="6.5" fill="#f2ebc9" stroke="#3e4954" stroke-width="1.6"/><circle cx="29" cy="9" r="2.2" fill="#3e4954"/></g></svg>Past · upcoming</li>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><circle cx="20" cy="9" r="6.5" fill="#b3352c"/><circle cx="20" cy="9" r="2.2" fill="#f2ebc9"/></svg>Selected</li>
+        </ul></section>
+      </div>
     </div>
   </div>
 
-  <aside class="card" aria-live="polite">
+  <aside class="card" id="card" aria-live="polite">
+    <button type="button" class="card-close" id="card-close" aria-label="Close site card">×</button>
     <div class="stamp" id="c-stamp">Operation Husky</div>
     <h1 id="c-name">Gela</h1>
     <p class="meta" id="c-meta"></p>
@@ -275,6 +300,7 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
       <div class="stamp">Footage editor</div>
       <h1>Edit each site</h1>
       <p class="meta" id="ed-status">Connecting to the map's saved data…</p>
+      <label class="ed-toggle"><input type="checkbox" id="ed-unit-names"> Show unit names on the map</label>
     </div>
     <a href="#map" class="ed-back">← Back to the map</a>
   </header>
@@ -494,37 +520,45 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
 
   // ---- unit symbols, moving through keyframes [day, lon, lat] ----
   const unitsG = $("g-units");
-  function unitSymbol(label, side, kind, size) {
-    const col = side === "a" ? C.allied : C.axis, g = el("g", {}, unitsG);
-    const w = 18, h = 12, x0 = -w / 2, y0 = -h / 2, X = `M${x0},${y0} L${x0 + w},${y0 + h} M${x0 + w},${y0} L${x0},${y0 + h}`;
-    el("rect", { x: x0, y: y0, width: w, height: h, fill: C.land, stroke: col, "stroke-width": 1.2 }, g);
-    if (kind === "inf" || kind === "abn") el("path", { d: X, stroke: col, "stroke-width": 1 }, g);
-    if (kind === "abn") el("path", { d: `M-5,${y0 + h - 1} Q-2.5,${y0 + h - 5} 0,${y0 + h - 1} Q2.5,${y0 + h - 5} 5,${y0 + h - 1}`, fill: "none", stroke: col, "stroke-width": 1 }, g);
-    if (kind === "arm" || kind === "pzg") el("ellipse", { cx: 0, cy: 0, rx: 6, ry: 3.2, fill: "none", stroke: col, "stroke-width": 1 }, g);
-    if (kind === "pzg") el("path", { d: X, stroke: col, "stroke-width": .8 }, g);
-    el("text", { x: 0, y: y0 - 2, "text-anchor": "middle", "font-family": "Overpass, sans-serif", "font-size": 6, fill: col, "letter-spacing": ".1em" }, g, size || "XX");
-    el("text", { x: w / 2 + 3, y: 3.5, "font-family": "Overpass, sans-serif", "font-size": 9, "font-weight": 700, fill: col }, g, label);
-    return g;
+  // box color by country: allies in cool hues, Axis in warm
+  const NATION = { us: "#2e4b80", uk: "#2f6b5f", ca: "#6b4f86", de: "#b3352c", it: "#9a5f1c" };
+  const ABBR = { us: "US", uk: "UK", ca: "Can", de: "Ger", it: "IT" };
+  // boxes show only the country abbreviation
+  function unitSymbol(label, nation) {
+    const col = NATION[nation], g = el("g", {}, unitsG);
+    const rect = el("rect", { y: -6.5, height: 13, rx: 2, fill: col, stroke: C.land, "stroke-width": 1 }, g);
+    const text = el("text", { x: 0, y: 3.2, "text-anchor": "middle", "font-family": "Overpass, sans-serif", "font-size": 9, "font-weight": 700, fill: C.land }, g);
+    return { g, rect, text, abbr: ABBR[nation] };
+  }
+  function showUnitNames(on) {
+    UNITS.forEach(u => {
+      const s = u.abbr, w = s.length * 5.6 + 8;
+      u.text.textContent = s;
+      u.rect.setAttribute("x", -w / 2); u.rect.setAttribute("width", w);
+    });
   }
   const UNITS = [
-    ["82", "a", "abn", "", 39, [[0,14.35,37.12],[8,13.75,37.35],[12,13.15,37.62],[14,12.78,37.88]]],
-    ["2", "a", "arm", "", 39, [[1,14.2,37.12],[9,13.78,37.32],[13,13.25,37.95]]],
-    ["45", "a", "inf", "", 24, [[1,14.46,36.98],[6,14.3,37.4],[11,13.9,37.7],[14,13.65,37.88],[22,14.3,37.95]]],
-    ["3", "a", "inf", "", 39, [[1,13.95,37.16],[8,13.55,37.38],[13,13.3,37.9],[22,14.2,37.96],[30,14.65,38.05],[39,15.4,38.15]]],
-    ["1", "a", "inf", "", 29, [[1,14.27,37.12],[5,14.3,37.3],[11,14.2,37.52],[19,14.38,37.72],[28,14.58,37.82]]],
-    ["9", "a", "inf", "", 39, [[22,14.3,37.62],[28,14.62,37.85],[35,14.92,37.92]]],
-    ["1 Can", "a", "inf", "", 30, [[1,15.03,36.75],[5,14.73,37.0],[8,14.55,37.24],[12,14.4,37.5],[19,14.55,37.6],[27,14.72,37.6]]],
-    ["231", "a", "inf", "X", 30, [[1,15.18,36.82],[8,14.78,37.3],[14,14.72,37.38],[25,14.7,37.5]]],
-    ["51", "a", "inf", "", 39, [[1,15.15,36.9],[7,14.95,37.25],[14,14.92,37.3],[28,14.95,37.55]]],
-    ["50", "a", "inf", "", 39, [[1,15.22,37.0],[7,15.0,37.32],[14,14.98,37.35],[27,15.12,37.6],[36,15.25,37.88]]],
-    ["5", "a", "inf", "", 39, [[1,15.24,37.05],[4,15.15,37.22],[10,15.0,37.28],[27,14.95,37.45]]],
-    ["78", "a", "inf", "", 39, [[22,14.55,37.48],[27,14.78,37.62],[35,14.92,37.82]]],
-    ["Livorno", "x", "inf", "", 9, [[0,14.15,37.25],[2,14.22,37.15],[6,14.1,37.4]]],
-    ["H.G.", "x", "pzg", "", 38, [[0,14.45,37.22],[2,14.32,37.13],[5,14.65,37.25],[8,14.9,37.42],[14,14.86,37.5],[28,15.0,37.65],[36,15.4,38.08]]],
-    ["15", "x", "pzg", "", 38, [[0,13.95,37.45],[6,14.1,37.52],[12,14.25,37.68],[19,14.38,37.87],[28,14.68,37.88],[35,15.2,38.05]]],
-    ["29", "x", "pzg", "", 38, [[16,15.45,38.15],[22,14.75,38.05],[30,14.9,38.08],[36,15.4,38.18]]],
-    ["1 FJ", "x", "abn", "", 38, [[4,15.0,37.43],[14,15.02,37.48],[28,15.1,37.75],[36,15.45,38.12]]]
-  ].map(([label, side, kind, size, end, keys]) => ({ g: unitSymbol(label, side, kind, size), end, keys }));
+    ["82 Abn", "us", "abn", "", 39, [[0,14.35,37.12],[8,13.75,37.35],[12,13.15,37.62],[14,12.78,37.88]]],
+    ["2 Arm", "us", "arm", "", 39, [[1,14.2,37.12],[9,13.78,37.32],[13,13.25,37.95]]],
+    ["45", "us", "inf", "", 24, [[1,14.46,36.98],[6,14.3,37.4],[11,13.9,37.7],[14,13.65,37.88],[22,14.3,37.95]]],
+    ["3", "us", "inf", "", 39, [[1,13.95,37.16],[8,13.55,37.38],[13,13.3,37.9],[22,14.2,37.96],[30,14.65,38.05],[39,15.4,38.15]]],
+    ["1", "us", "inf", "", 29, [[1,14.27,37.12],[5,14.3,37.3],[11,14.2,37.52],[19,14.38,37.72],[28,14.58,37.82]]],
+    ["9", "us", "inf", "", 39, [[22,14.3,37.62],[28,14.62,37.85],[35,14.92,37.92]]],
+    ["1 Can", "ca", "inf", "", 30, [[1,15.03,36.75],[5,14.73,37.0],[8,14.55,37.24],[12,14.4,37.5],[19,14.55,37.6],[27,14.72,37.6]]],
+    ["231", "uk", "inf", "X", 30, [[1,15.18,36.82],[8,14.78,37.3],[14,14.72,37.38],[25,14.7,37.5]]],
+    ["51", "uk", "inf", "", 39, [[1,15.15,36.9],[7,14.95,37.25],[14,14.92,37.3],[28,14.95,37.55]]],
+    ["50", "uk", "inf", "", 39, [[1,15.22,37.0],[7,15.0,37.32],[14,14.98,37.35],[27,15.12,37.6],[36,15.25,37.88]]],
+    ["5", "uk", "inf", "", 39, [[1,15.24,37.05],[4,15.15,37.22],[10,15.0,37.28],[27,14.95,37.45]]],
+    ["78", "uk", "inf", "", 39, [[22,14.55,37.48],[27,14.78,37.62],[35,14.92,37.82]]],
+    ["Livorno", "it", "inf", "", 9, [[0,14.15,37.25],[2,14.22,37.15],[6,14.1,37.4]]],
+    ["H.G.", "de", "pzg", "", 38, [[0,14.45,37.22],[2,14.32,37.13],[5,14.65,37.25],[8,14.9,37.42],[14,14.86,37.5],[28,15.0,37.65],[36,15.4,38.08]]],
+    ["15 PzG", "de", "pzg", "", 38, [[0,13.95,37.45],[6,14.1,37.52],[12,14.25,37.68],[19,14.38,37.87],[28,14.68,37.88],[35,15.2,38.05]]],
+    ["29 PzG", "de", "pzg", "", 38, [[16,15.45,38.15],[22,14.75,38.05],[30,14.9,38.08],[36,15.4,38.18]]],
+    ["1 FJ", "de", "abn", "", 38, [[4,15.0,37.43],[14,15.02,37.48],[28,15.1,37.75],[36,15.45,38.12]]]
+  ].map(([label, nation, kind, size, end, keys]) => ({ ...unitSymbol(label, nation), end, keys }));
+  let unitNamesOn = false;
+  try { unitNamesOn = localStorage.getItem("unitNames") === "1"; } catch (e) {}
+  showUnitNames(unitNamesOn);
 
   const EVENTS = [
     [0, "Night of 9 July: US and British airborne troops drop inland. Gliders bound for Ponte Grande come down short, many in the sea."],
@@ -746,8 +780,8 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
     el("circle", { class: "dot", cx: x, cy: y, r: 2.2 }, g);
     const off = { l: [-10, 4, "end"], r: [10, 4, "start"], b: [0, 19, "middle"] }[s.lab];
     s._lbl = el("text", { class: "lbl", x: x + off[0], y: y + off[1], "text-anchor": off[2] }, g, s.name.toUpperCase());
-    g.addEventListener("click", () => select(s.id, true));
-    g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(s.id, true); } });
+    g.addEventListener("click", () => openSite(s.id));
+    g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openSite(s.id); } });
     nodes[s.id] = g;
   });
 
@@ -773,17 +807,30 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
     try { localStorage.setItem("sicily-site", id); } catch (e) {}
   }
 
+  // collapsible card: hidden until a site is clicked
+  function openCard() { $("mapview").classList.remove("closed"); }
+  $("card-close").addEventListener("click", () => $("mapview").classList.add("closed"));
+
   // film player
   const dlg = $("player"), frame = $("p-frame");
   $("c-mode").textContent = EMBED ? "plays here" : "opens in a new tab";
+  function playReel(a) {
+    $("p-title").textContent = a.querySelector(".t").textContent;
+    $("p-link").href = a.href;
+    frame.src = a.dataset.embed;
+    if (!dlg.open) dlg.showModal();
+  }
+  // clicking a site opens the card and plays its first embeddable film over it
+  function openSite(id) {
+    select(id, true); openCard();
+    const a = $("c-reels").querySelector("a[data-embed]");
+    if (a && EMBED && dlg.showModal) playReel(a);
+  }
   $("c-reels").addEventListener("click", e => {
     const a = e.target.closest("a[data-embed]");
     if (!a || !EMBED || !dlg.showModal) return;
     e.preventDefault();
-    $("p-title").textContent = a.querySelector(".t").textContent;
-    $("p-link").href = a.href;
-    frame.src = a.dataset.embed;
-    dlg.showModal();
+    playReel(a);
   });
   $("p-close").addEventListener("click", () => dlg.close());
   dlg.addEventListener("click", e => {
@@ -802,6 +849,10 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
   const range = $("tl-range"), playBtn = $("tl-play");
   [[D(7,10),"10 Jul"],[D(7,15),"15"],[D(7,20),"20"],[D(7,25),"25"],[D(8,1),"1 Aug"],[D(8,5),"5"],[D(8,10),"10"],[D(8,17),"17"]]
     .forEach(([d, l]) => { const s = document.createElement("span"); s.style.left = (d / T_END * 100) + "%"; s.textContent = l; $("tl-ticks").appendChild(s); });
+  // play steps from one event to the next
+  const STOPS = [...new Set(EVENTS.map(e => e[0]))].sort((a, b) => a - b);
+  STOPS.forEach(d => { const s = document.createElement("span"); s.style.left = (d / T_END * 100) + "%"; $("tl-pts").appendChild(s); });
+  const pulseDot = '<svg viewBox="-13 -13 26 26" aria-hidden="true"><g class="site now"><circle class="pulse" r="8"/><circle class="halo" r="11"/><circle class="ring" r="6.5"/><circle class="dot" r="2.2"/></g></svg>';
   let T = 14, shownLive = null;
   function setT(t) {
     T = Math.max(0, Math.min(T_END, t));
@@ -851,13 +902,14 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
       if (!live.length) strip.innerHTML = "<em>No site on the map is in action on this date.</em>";
       else {
         const lab = document.createElement("span");
-        lab.textContent = "In action · footage:";
+        lab.textContent = "In action:";
         strip.appendChild(lab);
         live.forEach(s => {
           const b = document.createElement("button");
-          b.type = "button"; b.dataset.id = s.id; b.textContent = s.name;
+          b.type = "button"; b.dataset.id = s.id; b.innerHTML = pulseDot;
+          b.append(siteText(s.id).name);
           b.setAttribute("aria-current", s.id === current ? "true" : "false");
-          b.addEventListener("click", () => select(s.id));
+          b.addEventListener("click", () => { select(s.id); openCard(); });
           strip.appendChild(b);
         });
       }
@@ -867,18 +919,19 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
     $("cart-date").textContent = `Situation, ${label}, and`;
     $("tl-event").textContent = EVENTS.filter(e => e[0] <= T).pop()[1];
   }
-  let raf = 0, last = 0;
+  let raf = 0, last = 0, target = 0;
   const DAY_MS = 650;
   function tick(now) {
-    if (last) setT(T + (now - last) / DAY_MS);
+    if (last) setT(Math.min(target, T + (now - last) / DAY_MS));
     last = now;
-    if (T >= T_END) return stop();
+    if (T >= target) return stop();
     raf = requestAnimationFrame(tick);
   }
-  function stop() { cancelAnimationFrame(raf); raf = 0; last = 0; playBtn.textContent = "▶"; playBtn.setAttribute("aria-label", "Play timeline"); }
+  function stop() { cancelAnimationFrame(raf); raf = 0; last = 0; playBtn.textContent = "▶"; playBtn.setAttribute("aria-label", "Play to next event"); }
   playBtn.addEventListener("click", () => {
     if (raf) return stop();
-    if (T >= T_END) setT(0);
+    if (T >= T_END) return setT(0);
+    target = STOPS.find(d => d > T + 1e-6);
     playBtn.textContent = "❚❚"; playBtn.setAttribute("aria-label", "Pause timeline");
     raf = requestAnimationFrame(tick);
   });
@@ -1063,6 +1116,13 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
     } catch (e) { edMsg("Couldn't restore just now. Try again in a moment.", true); btn.disabled = false; }
   });
   $("ed-discard").addEventListener("click", () => { delete drafts[edSite]; delete textDrafts[edSite]; edMsg("Changes discarded."); renderEditor(); });
+
+  const unitNamesCb = $("ed-unit-names");
+  unitNamesCb.checked = unitNamesOn;
+  unitNamesCb.addEventListener("change", () => {
+    showUnitNames(unitNamesCb.checked);
+    try { localStorage.setItem("unitNames", unitNamesCb.checked ? "1" : "0"); } catch (e) {}
+  });
 
   function route() {
     const ed = edOpen();
