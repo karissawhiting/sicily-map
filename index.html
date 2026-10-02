@@ -53,7 +53,6 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
 .tl-now strong { font-family: var(--font-letter); font-weight: 800; font-size: 20px; letter-spacing: .06em; text-transform: uppercase; color: var(--axis); font-variant-numeric: tabular-nums; min-width: 9.5em; }
 .tl-now span { flex: 1 1 260px; min-width: 0; font-size: 17px; }
 .site.future { opacity: .35; }
-#map.no-cities .site:not(.now) { display: none; }
 .swatch { width: 26px; height: 0; border-top: 2px solid; display: inline-block; }
 .tl-sites { grid-column: 1 / -1; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: 13px; min-height: 34px; }
 .tl-sites > span { font-family: var(--font-letter); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--axis); }
@@ -83,11 +82,9 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
 .site .ring { fill: var(--paper-hi); stroke: var(--ink); stroke-width: 1.6; transition: r .15s; }
 .site .dot { fill: var(--ink); }
 .site .lbl { font-family: var(--font-letter); font-weight: 800; font-size: 10.5px; letter-spacing: .07em; fill: var(--ink); paint-order: stroke; stroke: var(--paper); stroke-width: 3px; }
-.site:hover .ring, .site:focus-visible .ring { stroke: var(--axis); stroke-width: 2.2; }
-.site:focus-visible .lbl { fill: var(--axis); }
-.site.on .ring { fill: var(--axis); stroke: var(--axis); }
+.site:hover .ring, .site:focus-visible .ring { stroke: var(--ink); stroke-width: 2.2; }
+.site.on .ring { fill: var(--ink); stroke: var(--ink); }
 .site.on .dot { fill: var(--paper-hi); }
-.site.on .lbl { fill: var(--axis); }
 .pulse { fill: none; stroke: var(--axis); stroke-width: 1.5; opacity: 0; }
 .halo { fill: none; stroke: var(--axis); stroke-width: 3.5; opacity: 0; }
 .site.now .halo { opacity: .4; }
@@ -257,12 +254,12 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
       <div class="key">
         <section><h3>Lines</h3><ul>
           <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="37" y2="9" stroke="#b3352c" stroke-width="3.2" stroke-linecap="round"/></svg>Front line on this date</li>
-          <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="37" y2="9" stroke="#b3352c" stroke-width="1.4" stroke-dasharray="6 5" stroke-opacity=".45" stroke-linecap="round"/></svg>Earlier fronts</li>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="37" y2="9" stroke="#b3352c" stroke-width="1.4" stroke-dasharray="6 5" stroke-opacity=".45" stroke-linecap="round"/></svg>Previous front</li>
           <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="37" y2="9" stroke="#3e4954" stroke-width="1"/></svg>US / British army boundary</li>
         </ul></section>
         <section><h3>Movement</h3><ul>
           <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="2" y1="9" x2="31" y2="9" stroke="#2e4b80" stroke-width="1.7" stroke-dasharray="9 4 2 4"/><path d="M30,5 L39,9 L30,13 L32.5,9 Z" fill="#2e4b80"/></svg>Allied advance</li>
-          <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="31" y2="9" stroke="#b3352c" stroke-width="1.7" stroke-dasharray="2 4" stroke-linecap="round"/><path d="M30,5 L39,9 L30,13 L32.5,9 Z" fill="#b3352c"/></svg>Axis evacuation</li>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><line x1="3" y1="9" x2="31" y2="9" stroke="#5c4a3a" stroke-width="1.7" stroke-dasharray="2 4" stroke-linecap="round"/><path d="M30,5 L39,9 L30,13 L32.5,9 Z" fill="#5c4a3a"/></svg>Axis evacuation</li>
           <li><svg viewBox="0 0 40 18" aria-hidden="true"><g transform="translate(20,8)"><path d="M-7,-3 A7,6 0 0 1 7,-3 Z" fill="#ebe2b9" stroke="#2e4b80" stroke-width="1.2"/><path d="M-7,-3 L0,7 L7,-3 M0,-3 L0,7" fill="none" stroke="#2e4b80" stroke-width=".8"/></g></svg>Airborne drop</li>
         </ul></section>
         <section><h3>Units</h3><ul class="nations">
@@ -275,7 +272,7 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
         <section><h3>Sites</h3><ul>
           <li><svg viewBox="0 0 40 18" aria-hidden="true"><circle cx="20" cy="9" r="11" fill="none" stroke="#b3352c" stroke-width="3.5" opacity=".4"/><circle cx="20" cy="9" r="6.5" fill="#f2ebc9" stroke="#b3352c" stroke-width="2.4"/><circle cx="20" cy="9" r="2.2" fill="#3e4954"/></svg>In action now</li>
           <li><svg viewBox="0 0 40 18" aria-hidden="true"><circle cx="11" cy="9" r="6.5" fill="#f2ebc9" stroke="#3e4954" stroke-width="1.6"/><circle cx="11" cy="9" r="2.2" fill="#3e4954"/><g opacity=".35"><circle cx="29" cy="9" r="6.5" fill="#f2ebc9" stroke="#3e4954" stroke-width="1.6"/><circle cx="29" cy="9" r="2.2" fill="#3e4954"/></g></svg>Past · upcoming</li>
-          <li><svg viewBox="0 0 40 18" aria-hidden="true"><circle cx="20" cy="9" r="6.5" fill="#b3352c"/><circle cx="20" cy="9" r="2.2" fill="#f2ebc9"/></svg>Selected</li>
+          <li><svg viewBox="0 0 40 18" aria-hidden="true"><circle cx="20" cy="9" r="6.5" fill="#3e4954"/><circle cx="20" cy="9" r="2.2" fill="#f2ebc9"/></svg>Selected</li>
         </ul></section>
       </div>
     </div>
@@ -340,14 +337,14 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
     <h2 id="p-title"></h2>
     <button type="button" id="p-close" aria-label="Close player">✕</button>
   </div>
-  <div class="p-screen"><iframe id="p-frame" title="Film player" allow="fullscreen" allowfullscreen></iframe></div>
+  <div class="p-screen"><iframe id="p-frame" title="Film player" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
   <a id="p-link" target="_blank" rel="noopener">Open on Internet Archive ↗</a>
 </dialog>
 
 <script>
 (function () {
   const NS = "http://www.w3.org/2000/svg";
-  const C = { ink: "#3e4954", soft: "#8a8a76", allied: "#2e4b80", axis: "#b3352c", land: "#ebe2b9", sea: "#6f7a80" };
+  const C = { ink: "#3e4954", soft: "#8a8a76", allied: "#2e4b80", axis: "#b3352c", german: "#5c4a3a", land: "#ebe2b9", sea: "#6f7a80" };
   const P = (lon, lat) => [(lon - 12.25) * 237, (38.45 - lat) * 300];
   const f = n => n.toFixed(1);
   function smooth(arr, close) {
@@ -503,7 +500,7 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
   ];
   const advG = $("g-adv"), defs = document.querySelector("#map defs");
   const arrows = ARROWS.map(([pts, a, b, side], i) => {
-    const col = side === "a" ? C.allied : C.axis, d = smooth(pts);
+    const col = side === "a" ? C.allied : C.german, d = smooth(pts);
     const mask = el("mask", { id: "m" + i, maskUnits: "userSpaceOnUse", x: 0, y: 0, width: 870, height: 540 }, defs);
     const mp = el("path", { d, fill: "none", stroke: "#fff", "stroke-width": 8 }, mask);
     const g = el("g", {}, advG);
@@ -523,19 +520,19 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
   // ---- unit symbols, moving through keyframes [day, lon, lat] ----
   const unitsG = $("g-units");
   // box color by country: allies in cool hues, Axis in warm
-  const NATION = { us: "#2e4b80", uk: "#2f6b5f", ca: "#6b4f86", de: "#b3352c", it: "#9a5f1c" };
+  const NATION = { us: "#2e4b80", uk: "#2f6b5f", ca: "#6b4f86", de: C.axis, it: "#9a5f1c" };
   const ABBR = { us: "US", uk: "UK", ca: "Can", de: "Ger", it: "IT" };
-  // boxes show only the country abbreviation
+  // boxes are plain color; the legend says which color is which country
   function unitSymbol(label, nation) {
     const col = NATION[nation], g = el("g", {}, unitsG);
-    const rect = el("rect", { y: -6.5, height: 13, rx: 2, fill: col, stroke: C.land, "stroke-width": 1 }, g);
+    const rect = el("rect", { y: -4, height: 8, rx: 1.5, fill: col, stroke: C.land, "stroke-width": 1 }, g);
     const text = el("text", { x: 0, y: 3.2, "text-anchor": "middle", "font-family": "Overpass, sans-serif", "font-size": 9, "font-weight": 700, fill: C.land }, g);
     return { g, rect, text, abbr: ABBR[nation] };
   }
   function showUnitNames(on) {
     UNITS.forEach(u => {
-      const s = u.abbr, w = s.length * 5.6 + 8;
-      u.text.textContent = s;
+      const w = 10;
+      u.text.textContent = "";
       u.rect.setAttribute("x", -w / 2); u.rect.setAttribute("width", w);
     });
   }
@@ -585,10 +582,11 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
 
   { // the long boundary arrow from 15th Army Group in the south
     const [x, y] = P(14.72, 36.62);
-    el("path", { d: smooth([[14.72,36.66],[14.74,36.95],[14.66,37.25],[14.60,37.62]]), fill: "none", stroke: C.ink, "stroke-width": 1 }, $("g-bound"));
+    el("path", { d: smooth([[14.72,36.785],[14.74,36.95],[14.66,37.25],[14.60,37.62]]), fill: "none", stroke: C.ink, "stroke-width": 1 }, $("g-bound"));
     const t = el("text", { transform: `translate(${f(P(14.70,37.12)[0])},${f(P(14.70,37.12)[1])}) rotate(-78)`, "font-family": "Overpass, sans-serif", "font-size": 7.5, "font-weight": 700, fill: C.ink, "letter-spacing": ".12em", "text-anchor": "middle" }, $("g-bound"));
-    el("tspan", { x: 0, dy: -3 }, t, "SEVENTH");
-    el("tspan", { x: 0, dy: 10 }, t, "EIGHTH");
+    // each army named on its own side of the line, in its country color
+    el("tspan", { x: 0, dy: -4, fill: NATION.us }, t, "SEVENTH");
+    el("tspan", { x: 0, dy: 13, fill: NATION.uk }, t, "EIGHTH");
   }
 
   // ---- big labels ----
@@ -597,18 +595,20 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
     const [x, y] = P(lon, lat);
     return el("text", Object.assign({ x, y, "font-family": "Overpass, sans-serif", fill: C.ink, "text-anchor": "middle" }, o || {}), L, s);
   }
-  function hq(lon, lat, unitName, cmdr, col) {
-    const [x, y] = P(lon, lat), w = unitName.length * 7.5 + 14;
-    el("text", { x, y: y - 9, "text-anchor": "middle", "font-family": "Overpass, sans-serif", "font-size": 6, fill: col, "letter-spacing": ".2em" }, L, "XXXX");
-    el("rect", { x: x - w / 2, y: y - 7, width: w, height: 14, fill: C.land, stroke: col, "stroke-width": 1.2 }, L);
-    el("text", { x, y: y + 3.5, "text-anchor": "middle", "font-family": "Overpass, sans-serif", "font-size": 9.5, "font-weight": 700, "letter-spacing": ".08em", fill: col }, L, unitName);
-    el("text", { x, y: y + 21, "text-anchor": "middle", "font-family": "Overpass, sans-serif", "font-size": 12, "font-weight": 700, "letter-spacing": ".1em", fill: col }, L, cmdr);
+  // army commands: army name over its commander, boxed and lightly tinted in the country's color like the unit symbols
+  function hq(lon, lat, country, unitName, cmdr, col) {
+    const [x, y] = P(lon, lat), w = Math.max(country.length * 5.5, unitName.length * 6.4, cmdr.length * 8) + 12;
+    el("rect", { x: x - w / 2, y: y - 17, width: w, height: 38, rx: 2, fill: col, "fill-opacity": .3, stroke: col, "stroke-width": 1.2 }, L);
+    el("text", { x, y: y - 7, "text-anchor": "middle", "font-family": "Overpass, sans-serif", "font-size": 6.5, "letter-spacing": ".2em", fill: col }, L, country);
+    el("text", { x, y: y + 3.5, "text-anchor": "middle", "font-family": "Overpass, sans-serif", "font-size": 9, "font-weight": 700, "letter-spacing": ".08em", fill: col }, L, unitName);
+    el("text", { x, y: y + 16, "text-anchor": "middle", "font-family": "Overpass, sans-serif", "font-size": 11, "font-weight": 700, "letter-spacing": ".1em", fill: col }, L, cmdr);
   }
-  hq(14.05, 36.86, "SEVENTH", "PATTON", C.ink);
-  hq(15.45, 36.86, "BR. EIGHTH", "MONTGOMERY", C.ink);
-  hq(14.72, 36.56, "15 ARMY GP", "ALEXANDER", C.ink);
-  hq(15.02, 38.30, "SIXTH", "GUZZONI", C.axis);
-  { const [x, y] = P(15.22, 38.05); el("text", { x, y, "font-family": "Overpass, sans-serif", "font-size": 9, "font-weight": 700, fill: C.axis, "letter-spacing": ".08em" }, L, "XIV PZ. CORPS · HUBE"); }
+  hq(14.05, 36.86, "US", "SEVENTH", "PATTON", NATION.us);
+  hq(15.45, 36.86, "BRITISH", "BR. EIGHTH", "MONTGOMERY", NATION.uk);
+  // 15th Army Group commanded both Allied armies, so it stays in neutral ink
+  hq(14.72, 36.725, "ALLIED", "15 ARMY GP", "ALEXANDER", C.ink);
+  hq(15.02, 38.30, "ITALIAN", "SIXTH", "GUZZONI", NATION.it);
+  hq(15.45, 38.05, "GERMAN", "XIV PZ. CORPS", "HUBE", NATION.de);
   const sea = { "font-family": "Courier Prime, monospace", "font-style": "italic", "font-size": 13, fill: C.sea, "letter-spacing": ".35em" };
   txt(13.9, 38.38, "TYRRHENIAN SEA", sea);
   txt(12.95, 37.0, "MEDITERRANEAN SEA", Object.assign({}, sea, { "font-size": 12 }));
@@ -819,7 +819,8 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
   function playReel(a) {
     $("p-title").textContent = a.querySelector(".t").textContent;
     $("p-link").href = a.href;
-    frame.src = a.dataset.embed;
+    // start playing as soon as the player opens
+    frame.src = a.dataset.embed + "?autoplay=1";
     if (!dlg.open) dlg.showModal();
   }
   // clicking a site opens the card and plays its first embeddable film over it
@@ -843,11 +844,7 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
 
   // layer toggles
   document.querySelectorAll("#layers input").forEach(cb => {
-    const apply = () => {
-      const g = document.querySelector(`[data-layer="${cb.dataset.target}"]`); if (g) g.style.display = cb.checked ? "" : "none";
-      // hiding cities also hides site markers that are not in action on this date
-      if (cb.dataset.target === "towns") $("map").classList.toggle("no-cities", !cb.checked);
-    };
+    const apply = () => { const g = document.querySelector(`[data-layer="${cb.dataset.target}"]`); if (g) g.style.display = cb.checked ? "" : "none"; };
     cb.addEventListener("change", apply); apply();
   });
 
@@ -863,9 +860,10 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
   function setT(t) {
     T = Math.max(0, Math.min(T_END, t));
     range.value = T;
-    const latest = FRONTS.filter(fr => fr.day <= T).pop();
+    // show only the current front and the one just before it
+    const past = FRONTS.filter(fr => fr.day <= T), latest = past[past.length - 1], prev = past[past.length - 2];
     FRONTS.forEach(fr => {
-      const on = fr.day <= T, cur = fr === latest;
+      const on = fr === latest || fr === prev, cur = fr === latest;
       fr.g.style.display = on ? "" : "none";
       fr.tagG.style.display = cur ? "" : "none";
       fr.paths.forEach(p => { p.setAttribute("stroke-width", cur ? 3.2 : 1.4); p.setAttribute("stroke-dasharray", cur ? "none" : "6 5"); p.setAttribute("stroke-opacity", cur ? 1 : .45); });
