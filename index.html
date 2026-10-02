@@ -53,6 +53,7 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
 .tl-now strong { font-family: var(--font-letter); font-weight: 800; font-size: 20px; letter-spacing: .06em; text-transform: uppercase; color: var(--axis); font-variant-numeric: tabular-nums; min-width: 9.5em; }
 .tl-now span { flex: 1 1 260px; min-width: 0; font-size: 17px; }
 .site.future { opacity: .35; }
+#map.no-cities .site:not(.now) { display: none; }
 .swatch { width: 26px; height: 0; border-top: 2px solid; display: inline-block; }
 .tl-sites { grid-column: 1 / -1; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: 13px; min-height: 34px; }
 .tl-sites > span { font-family: var(--font-letter); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--axis); }
@@ -234,7 +235,7 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
         <g id="g-land"></g>
         <g id="g-roads" data-layer="roads"></g>
         <g id="g-rivers" data-layer="rivers"></g>
-        <g id="g-towns"></g>
+        <g id="g-towns" data-layer="towns"></g>
         <g id="g-bound"></g>
         <g id="g-fronts"></g>
         <g id="g-adv" data-layer="adv"></g>
@@ -249,6 +250,7 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
       <label><input type="checkbox" id="ly-units" data-target="units" checked>Unit symbols</label>
       <label><input type="checkbox" id="ly-rivers" data-target="rivers">Rivers</label>
       <label><input type="checkbox" id="ly-roads" data-target="roads">Roads</label>
+      <label><input type="checkbox" id="ly-towns" data-target="towns" checked>Cities</label>
     </div>
     <div class="legend">
       <h2>Key</h2>
@@ -841,7 +843,11 @@ body { font-family: var(--font-type); font-size: 15px; line-height: 1.5; padding
 
   // layer toggles
   document.querySelectorAll("#layers input").forEach(cb => {
-    const apply = () => { const g = document.querySelector(`[data-layer="${cb.dataset.target}"]`); if (g) g.style.display = cb.checked ? "" : "none"; };
+    const apply = () => {
+      const g = document.querySelector(`[data-layer="${cb.dataset.target}"]`); if (g) g.style.display = cb.checked ? "" : "none";
+      // hiding cities also hides site markers that are not in action on this date
+      if (cb.dataset.target === "towns") $("map").classList.toggle("no-cities", !cb.checked);
+    };
     cb.addEventListener("change", apply); apply();
   });
 
